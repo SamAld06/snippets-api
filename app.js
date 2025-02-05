@@ -3,6 +3,13 @@ const db = require("./db.js");
 
 const app = express();
 app.use(express.json());
+app.use(express.static("public"));
+
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the Snippets API!");
+});
+
 
 app.post("/snippets", (req, res) => {
   const info = db.createSnippet.run(req.body.language, req.body.code);
