@@ -1,2 +1,29 @@
-<link rel="stylesheet" href="/styles.css">
-<script src="/script.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snippets List</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Code Snippets</h1>
+    <ul id="snippetsList"></ul>
+
+    <script>
+        async function fetchSnippets() {
+            const response = await fetch("/api/snippets");
+            const snippets = await response.json();
+            const list = document.getElementById("snippetsList");
+
+            snippets.forEach(snippet => {
+                const item = document.createElement("li");
+                item.textContent = `${snippet.language}: ${snippet.code}`;
+                list.appendChild(item);
+            });
+        }
+
+        fetchSnippets();
+    </script>
+</body>
+</html>
